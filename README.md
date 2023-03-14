@@ -9,6 +9,11 @@ An example project to demo how a simple to do list can be implemented on top of 
 
 # Get Started
 
+To make this todo work, we need to prepare database first.
+
+1. we need a database named: `spin_dev`, reference: [init_pg.sh](https://github.com/eightfish-org/eightfish/blob/master/init_pg.sh)
+2. we need the following schema for todo application. reference: [create.sql](https://github.com/eightfish-org/eightfish-example-todo/blob/master/backend/schema/create.sql)
+
 Spin up todo backend module
 
 ```
