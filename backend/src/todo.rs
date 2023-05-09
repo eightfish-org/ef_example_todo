@@ -82,7 +82,7 @@ impl TodoModule {
         Ok(response)
     }
 
-    fn new(req: &mut Request) -> Result<Response> {
+    fn newitem(req: &mut Request) -> Result<Response> {
         let pg_addr = std::env::var(DB_URL_ENV).unwrap();
 
         let params = req.parse_urlencoded();
@@ -103,8 +103,8 @@ impl TodoModule {
         let _execute_results = pg::execute(&pg_addr, &sql_statement, &sql_params);
         println!("in handler new: _execute_results: {:?}", _execute_results);
 
-        let mut results: Vec<Todo> = vec![];
-        results.push(todo);
+        let results: Vec<Todo> = vec![todo];
+        // results.push(todo);
 
         let info = Info {
             model_name: Todo::model_name(),
@@ -145,8 +145,8 @@ impl TodoModule {
         println!("{}, {}", sql_statement, sql_params.len());
         let _execute_results = pg::execute(&pg_addr, &sql_statement, &sql_params);
 
-        let mut results: Vec<Todo> = vec![];
-        results.push(todo);
+        let results: Vec<Todo> = vec![todo];
+        // results.push(todo);
 
         let info = Info {
             model_name: Todo::model_name(),
@@ -192,7 +192,7 @@ impl Module for TodoModule {
     fn router(&self, router: &mut Router) -> Result<()> {
         router.get("/todo", Self::list);
         router.get("/todo/:id", Self::get_one);
-        router.post("/todo/new", Self::new);
+        router.post("/todo/new", Self::newitem);
         router.post("/todo/update", Self::update);
         router.post("/todo/delete/:id", Self::delete);
 
