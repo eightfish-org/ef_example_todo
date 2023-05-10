@@ -57,7 +57,7 @@ impl Component for App {
                     //reload
                     let update_todos_cb = _ctx.link().callback(Msg::Update);
                     emit_todos(update_todos_cb);
-                    //self.state.entries.push(entry);
+                    self.state.entries.push(entry);
                 }
             }
             Msg::Edit((idx, edit_value)) => {

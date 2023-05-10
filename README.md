@@ -9,22 +9,64 @@ An example project to demo how a simple to do list can be implemented on top of 
 
 # Get Started
 
-To make this todo work, we need to prepare database first.
 
-1. we need a database named: `spin_dev`, reference: [init_pg.sh](https://github.com/eightfish-org/eightfish/blob/master/init_pg.sh)
-2. we need the following schema for todo application. reference: [create.sql](https://github.com/eightfish-org/eightfish-example-todo/blob/master/backend/schema/create.sql)
+## Prerequisite
 
-Spin up todo backend module
+We assume that you have done the EightFish [basic tests](https://github.com/eightfish-org/eightfish/blob/master/docs/docker.md). And at least you have to keep three images : 
 
 ```
-cd backend
-spin build
-spin up --spin up --follow-all
+
+  
 ```
 
-Build and test todo mvc front-end
+
+## First step: build the first stage image
+
+In the root directory of this project, run
 
 ```
-cd frontend
-trunk serve --open --port [port_number]
+./build_docker.sh
 ```
+
+This will build a image named `eightfish-todo-build`.
+
+## Second step: build backend and frontend images
+
+Go to the `docker` subdir, to build the todo-backend image and the todo-frontend image.
+
+```
+cd docker
+./build_app_images.sh
+```
+
+This will build other two images: `eightfish-todo_backend` and `eightfish-todo_frontend`.
+
+Now you can get:
+
+```
+
+```
+
+## Third step: start services
+
+In this step, we will boot up all services:
+
+```
+cd docker
+docker compose -f docker-compose-1node.yml up
+```
+
+Among of all, the frontend service would take some time (maybe 60s) to take up, so be patient to wait for its up.
+
+The frontend service would expose port: 8088 to host.
+
+## Visit and test
+
+You can open a web browser, visit: `http://127.0.0.1:8088`, wait a moment, it will show:
+
+![]()
+
+And you can fill in new item in the input box. Caution: At this moment, one post action would take more than 10 seconds (about 2 blocks generation period) to finish.
+
+
+
