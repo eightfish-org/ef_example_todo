@@ -69,9 +69,9 @@ services:
   todo_frontend_1:
     image: eightfish-todo_frontend
     restart: always
-    command: trunk serve --address 0.0.0.0 
+    command: trunk serve --address 0.0.0.0 --port 8088
     ports:
-      - '8080:8080'
+      - '8088:8088'
     depends_on:
       - todo_backend_1
 
