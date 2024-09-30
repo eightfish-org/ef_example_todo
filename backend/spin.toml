@@ -1,15 +1,28 @@
-spin_version = "1"
-authors = ["Fermyon Engineering <engineering@fermyon.com>"]
-description = "A redis application."
-name = "todo"
-trigger = {type = "redis", address = "redis://cache_1:6379"}
-version = "0.1.0"
+spin_manifest_version = 2
 
-[[component]]
-id = "redis-worker-todo"
-source = "target/wasm32-wasi/release/todo.wasm"
-#environment = { DB_URL = "host=localhost user=postgres password=123456 dbname=spin_dev sslmode=disable", REDIS_URL = "redis://127.0.0.1:6379"}
-[component.trigger]
-channel="proxy2spin"
-[component.build]
+# General identification information
+[application]
+name = "xxx"
+version = "0.2.0"
+description = "xxx"
+
+[variables]
+redis_host = { required = true }  # will be filled out in ENV
+proto_id = { required = true }  # will be filled out in ENV
+
+[[trigger.redis]]
+address = "redis://{{redis_host}}:6379"
+channel = "vin2worker:{{proto_id}}"
+component = "xxx"
+
+[component.xxx]
+description = ""
+source = "target/wasm32-wasi/release/xxx.wasm"
+
+[component.xxx.variables]
+redis_host = "{{ redis_host }}"
+proto_id = "{{ proto_id }}"
+
+# How to build the Wasm module from source
+[component.xxx.build]
 command = "cargo build --target wasm32-wasi --release"
